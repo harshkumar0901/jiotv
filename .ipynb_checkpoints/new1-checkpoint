@@ -1,0 +1,300 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "facfc182-9886-46a2-85b6-b03e5e7cf98a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "import numpy\n",
+    "import matplotlib.pyplot as plt\n",
+    "import seaborn as sns\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4b2dc45b-7600-4f06-988e-ea2c28d3b5f7",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = pd.read_csv(r\"C:\\Users\\hp\\Downloads\\train.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3c4c8edd-dbb0-4448-9e62-bd010fee03c1",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9b01326e-7564-490f-addb-1f864e11df5d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b3048c07-8953-4bd8-9750-14e0566820f6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Air temp = Machine failure\n",
+    "# Process temp affects tool wear\n",
+    "# Rotational speed -> Heating,deformation\n",
+    "# RNF -> Random failure, TWF -> Tool wear failure (Abbre -> Failure)\n",
+    "df.shape()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f74a5217-46f3-4fa1-814a-2a0e8528e039",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "be81af8f-a7cc-40b3-9f64-3ace24683d9d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.info"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ee782c49-28b9-4eb4-9a78-16038542ea19",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.describe"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3f02db53-ef37-45b9-83f5-152928a3d5d3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4d197765-9940-4313-8943-efe663ca2a59",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Air temperature -> outlier fre"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b6d910dd-fa39-4deb-aa1b-f60e3d5485f5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.corr"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "37357c9f-6277-48fd-9ecd-a04200ec8eb1",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "data_test = df.drop(['Product ID','Type'],axis = 1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4fc7022a-0307-4ff9-972d-1235e6f634a3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "data_test"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0759ce37-bd43-4ca9-ae10-a03e46a9d9d6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "data_test.corr()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "494cf005-30c0-41e6-a95b-71896f75a373",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "data_test.corr"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "11d87467-54f2-4761-8e52-5723c83bd480",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sns.heatmap(data_test.corr(),annot = True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fedee5a0-f520-4b05-8fc9-95a9cebdbec2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "data_test.columns"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "id": "c641dd72-df12-413b-b8a3-e99bf2b399ba",
+   "metadata": {},
+   "source": [
+    "for i in data_test.columns:\n",
+    "    print(len(data_test[i].unique))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "000f3307-5ce5-48d9-a042-eb2b97df130c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for i in data_test.columns:\n",
+    "    print(f'{i} : ',len(data_test[i].unique()))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ef5ce159-0e6b-4341-9eb1-7849f85e696c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "data_test.nunique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "06de2231-0a1d-41ba-a009-4bcfa1d8074b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "cat1=[]\n",
+    "contin2=[]\n",
+    "for i in data_test.columns:\n",
+    "    x = len(data_test[i].unique())\n",
+    "    if (x < 10):\n",
+    "        cat1.append(data_test[i])\n",
+    "    else:\n",
+    "        contin2.append(data_test[i])\n",
+    "        "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b05e71fd-f9ac-4dc7-b8eb-8f699cbffe33",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "cat1"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "144c0dbe-f429-4a61-867c-f0a575753893",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "contin2"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3d01fc52-5eb7-4310-ab57-a83b4ee1a80a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "y=sns.pairplot(cat1,contin2)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3fcdca9f-9c2c-4058-8acb-1cc5db9d018f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "y"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ee031d23-6310-4155-b2cd-52753cef089c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "plt.show()"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
